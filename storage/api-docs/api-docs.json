@@ -7,92 +7,309 @@
     },
     "servers": [
         {
-            "url": "http://localhost:8000/api",
-            "description": "Local development"
+            "url": "http://localhost:8000/api/v1",
+            "description": "Version 1"
         }
     ],
     "paths": {
-        "/api/rooms": {
+        "/v1/rooms": {
             "get": {
                 "tags": [
                     "Rooms"
                 ],
                 "summary": "Get all meeting rooms",
-                "operationId": "0a83a7211dbadf75091513e862aa0bfb",
+                "operationId": "5b474f3c5619d2968f25475f3a16a5a6",
                 "responses": {
                     "200": {
                         "description": "Success",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "properties": {
-                                        "statusCode": {
-                                            "type": "integer",
-                                            "example": 200
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseSuccessResponse"
                                         },
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Success"
-                                        },
-                                        "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "properties": {
-                                                    "id": {
-                                                        "type": "integer",
-                                                        "example": 1
-                                                    },
-                                                    "building_id": {
-                                                        "type": "integer",
-                                                        "example": 1
-                                                    },
-                                                    "name": {
-                                                        "type": "string",
-                                                        "example": "Ruang Rapat A"
-                                                    },
-                                                    "max_capacity": {
-                                                        "type": "integer",
-                                                        "example": 10
-                                                    },
-                                                    "floor": {
-                                                        "type": "integer",
-                                                        "example": 1
-                                                    },
-                                                    "type": {
-                                                        "type": "string",
-                                                        "example": "Meeting Room"
-                                                    },
-                                                    "description": {
-                                                        "type": "string",
-                                                        "example": "Ruang rapat dengan kapasitas 10 orang"
-                                                    },
-                                                    "is_active": {
-                                                        "type": "boolean",
-                                                        "example": true
-                                                    },
-                                                    "created_at": {
-                                                        "type": "string",
-                                                        "format": "date-time",
-                                                        "example": "2025-06-18T07:00:00Z"
-                                                    },
-                                                    "updated_at": {
-                                                        "type": "string",
-                                                        "format": "date-time",
-                                                        "example": "2025-06-18T07:00:00Z"
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Room"
                                                     }
                                                 },
-                                                "type": "object"
-                                            }
-                                        },
-                                        "meta": {
-                                            "type": "string",
-                                            "example": null,
-                                            "nullable": true
+                                                "meta": {
+                                                    "$ref": "#/components/schemas/PaginatedMeta"
+                                                }
+                                            },
+                                            "type": "object"
                                         }
-                                    },
-                                    "type": "object"
+                                    ]
                                 }
                             }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/BadRequestResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthorizedResponse"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/ForbiddenResponse"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/InternalServerErrorResponse"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "BaseErrorResponse": {
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Error occurred"
+                    },
+                    "statusCode": {
+                        "type": "integer",
+                        "example": 400
+                    },
+                    "errors": {
+                        "type": "object",
+                        "nullable": true
+                    },
+                    "data": {
+                        "type": "object",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "BaseSuccessResponse": {
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "nullable": true
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Success"
+                    },
+                    "statusCode": {
+                        "type": "integer",
+                        "example": 200
+                    },
+                    "meta": {
+                        "type": "object",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "PaginatedMeta": {
+                "properties": {
+                    "current_page": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "per_page": {
+                        "type": "integer",
+                        "example": 15
+                    },
+                    "total": {
+                        "type": "integer",
+                        "example": 100
+                    },
+                    "total_pages": {
+                        "type": "integer",
+                        "example": 7
+                    }
+                },
+                "type": "object"
+            },
+            "Room": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "building_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Ruang Rapat A"
+                    },
+                    "max_capacity": {
+                        "type": "integer",
+                        "example": 10
+                    },
+                    "floor": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "Meeting Room"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Ruang rapat dengan kapasitas 10 orang"
+                    },
+                    "is_active": {
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-06-18T07:00:00Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-06-18T07:00:00Z"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "responses": {
+            "BadRequestResponse": {
+                "description": "Bad Request Response",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Bad request"
+                                },
+                                "statusCode": {
+                                    "type": "integer",
+                                    "example": 400
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "ForbiddenResponse": {
+                "description": "Forbidden Response",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Forbidden, you do not have permission to access this resource"
+                                },
+                                "statusCode": {
+                                    "type": "integer",
+                                    "example": 403
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "InternalServerErrorResponse": {
+                "description": "Internal Server Error Response",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Internal server error"
+                                },
+                                "statusCode": {
+                                    "type": "integer",
+                                    "example": 500
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "NotFoundResponse": {
+                "description": "Not Found Response",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Resource not found"
+                                },
+                                "statusCode": {
+                                    "type": "integer",
+                                    "example": 404
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "UnauthorizedResponse": {
+                "description": "Unauthorized Response",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Unauthorized, you must be logged in to access this resource"
+                                },
+                                "statusCode": {
+                                    "type": "integer",
+                                    "example": 401
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "ValidationFailedResponse": {
+                "description": "Validation Failed Response",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Validation failed for the provided data"
+                                },
+                                "statusCode": {
+                                    "type": "integer",
+                                    "example": 422
+                                },
+                                "errors": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "field": {
+                                                "type": "string",
+                                                "example": "email"
+                                            },
+                                            "message": {
+                                                "type": "string",
+                                                "example": "The email field is required."
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            },
+                            "type": "object"
                         }
                     }
                 }

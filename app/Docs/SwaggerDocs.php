@@ -2,6 +2,8 @@
 
 namespace App\Docs;
 
+use OpenApi\Attributes as OA;
+
 /**
  * @OA\Info(
  *     title="Booking Rooms API",
@@ -10,8 +12,8 @@ namespace App\Docs;
  * )
  *
  * @OA\Server(
- *     url="http://localhost:8000/api",
- *     description="Local development"
+ *     url="http://localhost:8000/api/v1",
+ *     description="Version 1"
  * )
  */
 class SwaggerDocs {}

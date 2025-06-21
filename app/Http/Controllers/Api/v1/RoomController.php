@@ -8,36 +8,33 @@ use Illuminate\Http\Request;
 
 /**
  * @OA\Get(
- *     path="/api/rooms",
- *     tags={"Rooms"},
+ *     path="/v1/rooms",
  *     summary="Get all meeting rooms",
+ *     tags={"Rooms"},
  *     @OA\Response(
  *         response=200,
  *         description="Success",
  *         @OA\JsonContent(
- *             type="object",
- *             @OA\Property(property="statusCode", type="integer", example=200),
- *             @OA\Property(property="message", type="string", example="Success"),
- *             @OA\Property(
- *                 property="data",
- *                 type="array",
- *                 @OA\Items(
- *                     type="object",
- *                     @OA\Property(property="id", type="integer", example=1),
- *                     @OA\Property(property="building_id", type="integer", example=1),
- *                     @OA\Property(property="name", type="string", example="Ruang Rapat A"),
- *                     @OA\Property(property="max_capacity", type="integer", example=10),
- *                     @OA\Property(property="floor", type="integer", example=1),
- *                     @OA\Property(property="type", type="string", example="Meeting Room"),
- *                     @OA\Property(property="description", type="string", example="Ruang rapat dengan kapasitas 10 orang"),
- *                     @OA\Property(property="is_active", type="boolean", example=true),
- *                     @OA\Property(property="created_at", type="string", format="date-time", example="2025-06-18T07:00:00Z"),
- *                     @OA\Property(property="updated_at", type="string", format="date-time", example="2025-06-18T07:00:00Z")
+ *             allOf={
+ *                 @OA\Schema(ref="#/components/schemas/BaseSuccessResponse"),
+ *                 @OA\Schema(
+ *                     @OA\Property(
+ *                         property="data",
+ *                         type="array",
+ *                         @OA\Items(ref="#/components/schemas/Room")
+ *                     ),
+ *                     @OA\Property(
+ *                         property="meta",
+ *                         ref="#/components/schemas/PaginatedMeta"
+ *                     )
  *                 )
- *             ),
- *             @OA\Property(property="meta", type="string", nullable=true, example=null)
+ *             }
  *         )
- *     )
+ *     ),
+ *     @OA\Response(response=400, ref="#/components/responses/BadRequestResponse"),
+ *     @OA\Response(response=401, ref="#/components/responses/UnauthorizedResponse"),
+ *     @OA\Response(response=403, ref="#/components/responses/ForbiddenResponse"),
+ *     @OA\Response(response=500, ref="#/components/responses/InternalServerErrorResponse")
  * )
  */
 class RoomController extends Controller
@@ -61,7 +58,7 @@ class RoomController extends Controller
         ];
 
         return response()->json([
-            "statusCode" => 200,
+            "success" => true, // Changed from statusCode to success
             "message" => "Success",
             "data" => $rooms,
             "meta" => null,
