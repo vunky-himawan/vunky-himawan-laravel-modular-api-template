@@ -12,13 +12,21 @@
         }
     ],
     "paths": {
-        "/v1/rooms": {
+        "/rooms": {
             "get": {
                 "tags": [
                     "Rooms"
                 ],
                 "summary": "Get all meeting rooms",
-                "operationId": "5b474f3c5619d2968f25475f3a16a5a6",
+                "operationId": "a1e6c17acc77c386c9edb3e0182a32bb",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/PerPage"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -60,7 +68,12 @@
                     "500": {
                         "$ref": "#/components/responses/InternalServerErrorResponse"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
             }
         }
     },
@@ -313,6 +326,36 @@
                         }
                     }
                 }
+            }
+        },
+        "parameters": {
+            "Page": {
+                "name": "page",
+                "in": "query",
+                "description": "Page number",
+                "required": false,
+                "schema": {
+                    "type": "integer",
+                    "example": 1
+                }
+            },
+            "PerPage": {
+                "name": "per_page",
+                "in": "query",
+                "description": "Number of items per page",
+                "required": false,
+                "schema": {
+                    "type": "integer",
+                    "example": 10
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerToken": {
+                "type": "http",
+                "description": "Masukkan token Anda dengan format: Bearer {token}",
+                "bearerFormat": "Passport",
+                "scheme": "bearer"
             }
         }
     },

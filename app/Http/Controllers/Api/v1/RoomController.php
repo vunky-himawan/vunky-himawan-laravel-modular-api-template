@@ -3,14 +3,18 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PaginationRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 /**
  * @OA\Get(
- *     path="/v1/rooms",
+ *     path="/rooms",
  *     summary="Get all meeting rooms",
+ *     security={{"bearerToken":{}}},
  *     tags={"Rooms"},
+ *     @OA\Parameter(ref="#/components/parameters/Page"),
+ *     @OA\Parameter(ref="#/components/parameters/PerPage"),
  *     @OA\Response(
  *         response=200,
  *         description="Success",
@@ -39,7 +43,7 @@ use Illuminate\Http\Request;
  */
 class RoomController extends Controller
 {
-    public function index(): JsonResponse
+    public function index(PaginationRequest $request): JsonResponse
     {
         // Simulasi data
         $rooms = [
@@ -57,11 +61,6 @@ class RoomController extends Controller
             ],
         ];
 
-        return response()->json([
-            "success" => true, // Changed from statusCode to success
-            "message" => "Success",
-            "data" => $rooms,
-            "meta" => null,
-        ]);
+        return $this->paginatedResponse([], "Success");
     }
 }

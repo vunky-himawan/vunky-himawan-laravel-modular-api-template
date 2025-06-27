@@ -12,7 +12,7 @@ Route::get('/api/documentation', function () {
     ];
     if (config('l5-swagger.documentations')) {
         $documentation = config('l5-swagger.documentations')[0]['name'] ?? 'default';
-        $documentationTitle = config('l5-swagger.documentations')[0]['title'] ?? 'API Documentation';
+        $documentationTitle = config('l5-swagger.documentations')['default']['api']['title'] ?? 'API Documentation';
         $useAbsolutePath = config('l5-swagger.documentations')[0]['use_absolute_path'] ?? false;
     }
 
