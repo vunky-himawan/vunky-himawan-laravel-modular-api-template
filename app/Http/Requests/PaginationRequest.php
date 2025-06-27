@@ -4,26 +4,33 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @property int $per_page
+ * @property int $page
+ */
 class PaginationRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
     /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * Set default values if not provided
      */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'page' => $this->input('page', 1),
+            'per_page' => $this->input('per_page', 10),
+        ]);
+    }
+
     public function rules(): array
     {
         return [
-            'page' => 'integer|min:1',
-            'per_page' => 'integer|min:1|max:100',
+            'page' => 'sometimes|integer|min:1',
+            'per_page' => 'sometimes|integer|min:1|max:100',
         ];
     }
 }

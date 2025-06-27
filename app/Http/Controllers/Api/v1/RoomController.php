@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\DTOs\PaginationDTO;
+use App\DTOs\Room\CreateRoomDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PaginationRequest;
+use App\Http\Requests\Room\CreateRoomRequest;
+use App\Services\Room\RoomService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 /**
  * @OA\Get(
@@ -43,24 +46,56 @@ use Illuminate\Http\Request;
  */
 class RoomController extends Controller
 {
+    protected RoomService $roomService;
+
+    public function __construct(RoomService $roomService)
+    {
+        $this->roomService = $roomService;
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
     public function index(PaginationRequest $request): JsonResponse
     {
-        // Simulasi data
-        $rooms = [
-            [
-                "id" => 1,
-                "building_id" => 1,
-                "name" => "Ruang Rapat A",
-                "max_capacity" => 10,
-                "floor" => 1,
-                "type" => "Meeting Room",
-                "description" => "Ruang rapat dengan kapasitas 10 orang",
-                "is_active" => true,
-                "created_at" => now()->toISOString(),
-                "updated_at" => now()->toISOString(),
-            ],
-        ];
+        $paginationDTO = PaginationDTO::fromRequest($request->validated());
 
-        return $this->paginatedResponse([], "Success");
+        $rooms = $this->roomService->getRoomsWithPagination($paginationDTO);
+
+        return $this->paginatedResponse($rooms, "Success");
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(CreateRoomRequest $request)
+    {
+        $dto = CreateRoomDTO::fromRequest($request->validated());
+
+        $room = $this->roomService->createRoom($dto->toArray());
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
     }
 }
