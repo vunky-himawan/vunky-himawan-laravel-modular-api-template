@@ -15,10 +15,10 @@ class ApiResponse
         $response = [
             'success' => true,
             'message' => $message,
-            'data' => $data
+            'data' => $data,
         ];
 
-        if (!empty($meta)) {
+        if (! empty($meta)) {
             $response['meta'] = $meta;
         }
 
@@ -33,7 +33,7 @@ class ApiResponse
     ): JsonResponse {
         $response = [
             'success' => false,
-            'message' => $message
+            'message' => $message,
         ];
 
         if ($errors !== null) {
@@ -60,7 +60,7 @@ class ApiResponse
                 'per_page' => $paginatedData->perPage(),
                 'total' => $paginatedData->total(),
                 'total_pages' => $paginatedData->lastPage(),
-            ]
+            ],
         ]);
     }
 

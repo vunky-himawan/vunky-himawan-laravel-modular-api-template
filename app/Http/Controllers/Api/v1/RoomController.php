@@ -16,20 +16,27 @@ use Illuminate\Http\JsonResponse;
  *     summary="Get all meeting rooms",
  *     security={{"bearerToken":{}}},
  *     tags={"Rooms"},
+ *
  *     @OA\Parameter(ref="#/components/parameters/Page"),
  *     @OA\Parameter(ref="#/components/parameters/PerPage"),
+ *
  *     @OA\Response(
  *         response=200,
  *         description="Success",
+ *
  *         @OA\JsonContent(
  *             allOf={
+ *
  *                 @OA\Schema(ref="#/components/schemas/BaseSuccessResponse"),
  *                 @OA\Schema(
+ *
  *                     @OA\Property(
  *                         property="data",
  *                         type="array",
+ *
  *                         @OA\Items(ref="#/components/schemas/Room")
  *                     ),
+ *
  *                     @OA\Property(
  *                         property="meta",
  *                         ref="#/components/schemas/PaginatedMeta"
@@ -38,6 +45,7 @@ use Illuminate\Http\JsonResponse;
  *             }
  *         )
  *     ),
+ *
  *     @OA\Response(response=400, ref="#/components/responses/BadRequestResponse"),
  *     @OA\Response(response=401, ref="#/components/responses/UnauthorizedResponse"),
  *     @OA\Response(response=403, ref="#/components/responses/ForbiddenResponse"),
@@ -62,7 +70,7 @@ class RoomController extends Controller
 
         $rooms = $this->roomService->getRoomsWithPagination($paginationDTO);
 
-        return $this->paginatedResponse($rooms, "Success");
+        return $this->paginatedResponse($rooms, 'Success');
     }
 
     /**
@@ -74,7 +82,7 @@ class RoomController extends Controller
 
         $room = $this->roomService->createRoom($dto->toArray());
 
-        return $this->createdResponse($room, "Room created successfully");
+        return $this->createdResponse($room, 'Room created successfully');
     }
 
     /**

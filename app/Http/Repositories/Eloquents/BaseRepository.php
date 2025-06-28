@@ -4,7 +4,6 @@ namespace App\Http\Repositories\Eloquents;
 
 use App\DTOs\PaginationDTO;
 use App\Http\Repositories\Contracts\BaseRepositoryInterface;
-use App\Http\Requests\PaginationRequest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -43,6 +42,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
 
         if ($room) {
             $room->update($data);
+
             return $room;
         }
 
@@ -55,6 +55,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
 
         if ($room) {
             $room->delete();
+
             return true;
         }
 

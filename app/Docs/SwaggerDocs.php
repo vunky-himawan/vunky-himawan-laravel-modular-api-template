@@ -10,6 +10,7 @@ use OpenApi\Attributes as OA;
  *     version="1.0.0",
  *     description="Dokumentasi Booking Room System"
  * )
+ *
  * @OA\SecurityScheme(
  *     securityScheme="bearerToken",
  *     type="http",

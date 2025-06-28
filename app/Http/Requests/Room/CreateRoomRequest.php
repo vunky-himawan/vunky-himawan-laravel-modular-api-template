@@ -2,15 +2,10 @@
 
 namespace App\Http\Requests\Room;
 
-use App\Traits\ApiResponseTrait;
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
+use App\Http\Requests\BaseFormRequest;
 
-class CreateRoomRequest extends FormRequest
+class CreateRoomRequest extends BaseFormRequest
 {
-    use ApiResponseTrait;
-
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -48,23 +43,5 @@ class CreateRoomRequest extends FormRequest
             'description.max' => 'Description cannot exceed 1000 characters.',
             'type.max' => 'Type cannot exceed 50 characters.',
         ];
-    }
-    /**
-     * Handle a failed validation attempt.
-     *
-     * @param \Illuminate\Contracts\Validation\Validator $validator
-     * @return void
-     *
-     * @throws \Illuminate\Http\Exceptions\HttpResponseException
-     */
-    // Override the failedValidation method to return a custom response
-    protected function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException(
-            $this->validationErrorResponse(
-                $validator->errors()->toArray(),
-                'Validation failed'
-            )
-        );
     }
 }

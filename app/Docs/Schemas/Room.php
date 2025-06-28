@@ -8,6 +8,7 @@ use OpenApi\Annotations as OA;
  * @OA\Schema(
  *     schema="Room",
  *     type="object",
+ *
  *     @OA\Property(property="id", type="integer", example=1),
  *     @OA\Property(property="building_id", type="integer", example=1),
  *     @OA\Property(property="name", type="string", example="Ruang Rapat A"),

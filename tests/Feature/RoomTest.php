@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\DTOs\Room\CreateRoomDTO;
-use App\Models\Room;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -25,11 +24,11 @@ class RoomTest extends TestCase
 
         $dto = new CreateRoomDTO(
             1,
-            "Conference Room",
+            'Conference Room',
             20,
             4,
-            "Large conference room with video conferencing capabilities",
-            "conference",
+            'Large conference room with video conferencing capabilities',
+            'conference',
             true
         );
 
