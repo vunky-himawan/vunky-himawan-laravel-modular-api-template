@@ -1,66 +1,152 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# My Laravel Modular API Template: The "Not-Your-Average" Framework 😎
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## ⚠️ Important: This is My Jam, but You Do You!
 
-## About Laravel
+Welcome to my Laravel Modular API Template, crafted with love, sweat, and a sprinkle of caffeine-fueled madness. This structure is what I consider the comfiest way to build APIs, like slipping into your favorite pair of sweatpants. 😜 Feel free to adopt it, tweak it, or throw it out the window and dance to your own coding rhythm. No judgment here just good vibes and clean code!
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🎉 Why This Template is Cooler Than a Polar Bear’s Toenails
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Here’s what makes this template the bee’s knees for building scalable, maintainable APIs:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Layered Architecture:** Separates concerns like a pro chef slicing onions—clean, precise, and no tears! (Controllers, Services, Repositories, DTOs, Requests, Responses... you name it!)
 
-## Learning Laravel
+- **Modular Design:** Think LEGO blocks for your code. Add, remove, or rearrange modules without breaking a sweat.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Swagger/OpenAPI Swagger:** Auto-generated API docs so you don’t have to explain your endpoints to your team like you’re teaching quantum physics to a goldfish. 🐠
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **Husky Pre-Commit Hooks:** Linting and formatting so your code stays prettier than a sunset selfie.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Feature Tests in Modules:** Tests live next to their modules, because nobody likes a long-distance relationship.
 
-## Laravel Sponsors
+## 📂 Directory Structure: Where Everything Has a Home
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Here’s the grand tour of the file structure. Imagine it as a tidy house where every module has its own room, and nobody leaves dishes in the sink. 🧼
 
-### Premium Partners
+```
+app/
+├── Common                  # The communal fridge—shared goodies for all modules
+│   ├── Controllers         # Base controller, because even heroes need a foundation
+│   │   └── Controller.php
+│   ├── DTOs               # Data Transfer Objects, the neat little lunchboxes of data
+│   │   └── PaginationDTO.php
+│   ├── Docs               # Swagger/OpenAPI docs, because documentation is *sexy*
+│   │   ├── Components
+│   │   │   ├── BaseErrorResponse.php
+│   │   │   ├── BaseSuccessResponse.php
+│   │   │   ├── Errors     # Error responses for when things go *whoops*
+│   │   │   │   ├── BadRequestResponse.php
+│   │   │   │   ├── ForbiddenResponse.php
+│   │   │   │   ├── InternalServerErrorResponse.php
+│   │   │   │   ├── NotFoundResponse.php
+│   │   │   │   ├── UnauthorizedResponse.php
+│   │   │   │   └── ValidationFailedResponse.php
+│   │   │   ├── Meta.php
+│   │   │   └── Params
+│   │   │       └── PaginationParams.php
+│   │   ├── Schemas        # Your API’s blueprint, like architectural plans for a spaceship
+│   │   │   └── Room.php
+│   │   └── SwaggerDocs.php
+│   ├── Repositories       # Where data fetching lives, like a librarian with superpowers
+│   │   ├── Contracts
+│   │   │   └── BaseRepositoryInterface.php
+│   │   └── Eloquents
+│   │       └── BaseRepository.php
+│   ├── Requests           # Validate inputs like a bouncer at an exclusive club
+│   │   ├── BaseFormRequest.php
+│   │   └── PaginationRequest.php
+│   ├── Responses          # Pretty JSON responses, served with a side of elegance
+│   │   └── ApiResponse.php
+│   └── Traits             # Reusable code snippets, because DRY is the way to fly
+│       └── ApiResponseTrait.php
+├── Modules                # The cool kids’ rooms—each module is its own mini-universe
+│   ├── Auth              # Handles login, because nobody gets in without a VIP pass
+│   └── Facility          # Example module, like a swanky hotel for your data
+│       ├── Controllers
+│       │   └── Api
+│       │       └── v1
+│       │           └── Room
+│       │               └── RoomController.php
+│       ├── DTOs
+│       │   └── Room
+│       │       └── CreateRoomDTO.php
+│       ├── Models         # Eloquent models, the backbone of your data empire
+│       │   └── Room.php
+│       ├── Repositories
+│       │   └── Eloquents
+│       │       └── Room
+│       │           └── RoomRepository.php
+│       ├── Requests
+│       │   └── Room
+│       │       └── CreateRoomRequest.php
+│       ├── Routes         # API routes, your app’s highway system
+│       │   └── api.php
+│       ├── Services       # Business logic, where the magic happens ✨
+│       │   └── Room
+│       │       └── RoomService.php
+│       └── Tests          # Feature tests, because we don’t ship buggy code (right?)
+│           └── Features
+│               └── RoomTest.php
+└── Providers             # Laravel’s behind-the-scenes crew
+    ├── AppServiceProvider.php
+    ├── AuthServiceProvider.php
+    └── RepositoryServiceProvider.php
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Key Directories: The VIP Sections
 
-## Contributing
+- `app/Common`: The shared snack bar—stuff every module can munch on. 
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- `app/Modules/{module_name}`: Where each module lives its best life, like a quirky Airbnb rental.
 
-## Code of Conduct
+- `app/Providers`: The backstage crew making sure everything runs smoothly.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- `app/Console/Commands`: Custom Artisan commands, because who doesn’t love a good CLI trick?
 
-## Security Vulnerabilities
+## 🚀 Getting Started: From Zero to Hero in 5 Steps
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Ready to launch this bad boy? Buckle up and follow these steps to get your API up and running faster than you can say “Laravel is awesome!”
 
-## License
+1. Clone the Repo
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Grab the code like it’s free pizza at a hackathon. 🍕
+
+```bash
+git clone https://github.com/vunky-himawan/laravel-modular-api-template.git
+```
+
+2. Install Dependencies
+
+Get all the shiny packages with Composer. It’s like grocery shopping for your app.
+
+```bash
+cd laravel-modular-api-template
+composer install
+```
+
+3. Set Up Your .env File
+
+Copy the example, tweak it, and keep it secret like your grandma’s cookie recipe.
+
+```bash
+cp .env.example .env
+```
+
+4. Run Migrations
+
+Set up your database tables like laying the foundation for a digital castle. 🏰
+
+```bash
+php artisan migrate
+```
+
+5. Create a New Module
+
+Spin up a new module with a single command. It’s like magic, but with less wand-waving.
+
+```bash
+php artisan make:module {nama_module}
+```
+
+## 😄 Pro Tip: Have Fun!
+
+This template is built to make your life easier, but don’t be afraid to add your own flair. Think of it as a recipe—you can follow it to the letter or throw in some extra spice to make it yours. Happy coding, and may your bugs be few and your coffee strong! ☕
