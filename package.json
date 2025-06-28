@@ -5,7 +5,7 @@
         "build": "vite build",
         "dev": "vite",
         "lint": "php vendor/bin/pint --test",
-        "format": "php vendor/bin/pint --repair",
+        "format": "php vendor/bin/pint --repair || exit 0",
         "test": "php artisan test",
         "prepare": "husky install"
     },

@@ -2,7 +2,12 @@
 . "$(dirname "$0")/_/husky.sh"
 
 echo "🔍 Running linter..."
-pnpm lint || exit 1
+if ! pnpm lint; then
+  echo ""
+  echo "❌ Linter failed."
+  echo "💡 Jalankan 'pnpm format' untuk mencoba auto-fix, lalu commit ulang."
+  exit 1
+fi
 
 echo "🔨 Running formatter..."
 pnpm format || exit 1

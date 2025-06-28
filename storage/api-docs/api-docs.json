@@ -18,7 +18,7 @@
                     "Rooms"
                 ],
                 "summary": "Get all meeting rooms",
-                "operationId": "a1e6c17acc77c386c9edb3e0182a32bb",
+                "operationId": "d7bb93b7e998c1b43d05f4f230c8318e",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/Page"
