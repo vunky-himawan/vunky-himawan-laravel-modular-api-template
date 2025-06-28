@@ -111,7 +111,7 @@ Ready to launch this bad boy? Buckle up and follow these steps to get your API u
 Grab the code like it’s free pizza at a hackathon. 🍕
 
 ```bash
-git clone https://github.com/vunky-himawan/laravel-modular-api-template.git
+git clone https://github.com/vunky-himawan/vunky-himawan-laravel-modular-api-template.git
 ```
 
 2. Install Dependencies
