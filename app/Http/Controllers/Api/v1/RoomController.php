@@ -73,6 +73,8 @@ class RoomController extends Controller
         $dto = CreateRoomDTO::fromRequest($request->validated());
 
         $room = $this->roomService->createRoom($dto->toArray());
+
+        return $this->createdResponse($room, "Room created successfully");
     }
 
     /**
